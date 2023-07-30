@@ -3,14 +3,12 @@ import MainWindow from "@/views/MainWindow.vue";
 import ImageBg from "@/components/ImageBg.vue";
 import TempSwitcher from "@/components/TempSwitcher.vue";
 import { useApiStore } from "@/stores/apiStore"
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 
 const apiStore = useApiStore()
-let isLoad = ref(false)
 
 onMounted(async () => {
-  await apiStore.getWeatherCity('London')
-  isLoad.value = true;
+  await apiStore.getWeatherCity('saint')
 })
 
 </script>

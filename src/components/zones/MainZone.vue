@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import WeatherIcon from "@/components/WeatherIcon.vue";
 import TempRange from "@/components/TempRange.vue";
+import { useApiStore } from "@/stores/apiStore"
+import { ref, computed } from 'vue'
+
+const apiStore = useApiStore()
 </script>
 
 <template>
   <div class="main-zone">
     <div class="current-info">
       <div class="current-info__temp-now">
-        08℃
+        {{ apiStore.current?.temp_c }}℃
       </div>
       <div class="current-info__detail">
         <div class="current-info__city">
-          Saint Petersburg
+          {{ apiStore.location?.name }}
         </div>
         <div class="current-info__datetime">
           06:09 PM - Sunday, 6 Oct
