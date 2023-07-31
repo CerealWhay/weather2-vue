@@ -1,12 +1,12 @@
-import type {ICondition} from "@/interfaces/ICondition";
+import type {TCondition} from "@/types/api/TCondition";
 
-export interface ICurrentWeatherData {
+export interface TCurrentWeatherData {
     last_updated_epoch: number,
     last_updated: string,
     temp_c: number,
     temp_f: number,
     is_day: number,
-    condition: ICondition,
+    condition: TCondition,
     wind_mph: number,
     wind_kph: number,
     wind_dir: string,

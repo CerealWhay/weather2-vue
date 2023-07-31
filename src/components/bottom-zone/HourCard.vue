@@ -7,7 +7,7 @@ import WeatherIcon from "@/components/WeatherIcon.vue";
     <div class="hour-card__hour">
       14 PM
     </div>
-    <WeatherIcon class="hour-card__icon"/>
+<!--    <WeatherIcon class="hour-card__icon"/>-->
     <div class="hour-card__precip-chance">
       17%
     </div>

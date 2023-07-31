@@ -1,33 +1,62 @@
 <script setup lang="ts">
 import WeatherIcon from "@/components/WeatherIcon.vue";
 import TempRange from "@/components/TempRange.vue";
-import { useApiStore } from "@/stores/apiStore"
-import { ref, computed } from 'vue'
+import {useApiStore} from "@/stores/apiStore"
+import {useAppStore} from "@/stores/appStore";
+import {computed} from "vue";
+import moment from 'moment';
+import type {TTemps} from "@/types/TTemps";
+
 
 const apiStore = useApiStore()
+const appStore = useAppStore()
+
+const mainTempText = computed<string>(() => {
+  return appStore.getTempText({
+    tempC: apiStore.current.temp_c,
+    tempF: apiStore.current.temp_f,
+  })
+})
+
+const formattedDateText = computed<string>(() => {
+  return moment(apiStore.location.localtime_epoch * 1000).format('HH:mm A - dddd, D MMM')
+})
+
+const minTodayTemp = computed<TTemps>((): TTemps => ({
+  tempC: apiStore.forecast.forecastday[0].day.mintemp_c,
+  tempF: apiStore.forecast.forecastday[0].day.mintemp_f,
+}))
+
+const maxTodayTemp = computed<TTemps>((): TTemps => ({
+  tempC: apiStore.forecast.forecastday[0].day.maxtemp_c,
+  tempF: apiStore.forecast.forecastday[0].day.maxtemp_f,
+}))
 </script>
 
 <template>
   <div class="main-zone">
     <div class="current-info">
       <div class="current-info__temp-now">
-        {{ apiStore.current?.temp_c }}℃
+        {{ mainTempText }}
       </div>
       <div class="current-info__detail">
         <div class="current-info__city">
-          {{ apiStore.location?.name }}
+          {{ apiStore.location.name }}
         </div>
         <div class="current-info__datetime">
-          06:09 PM - Sunday, 6 Oct
+          {{ formattedDateText }}
         </div>
         <TempRange
             class="current-info__temp-range"
+            :min-values="minTodayTemp"
+            :max-values="maxTodayTemp"
         />
       </div>
     </div>
     <div class="main-zone__weather-icon-wrapper">
       <WeatherIcon
           class="main-zone__weather-icon"
+          :condition="apiStore.current.condition"
       />
     </div>
   </div>

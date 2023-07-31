@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import {computed} from 'vue'
+import type {TTemps} from "@/types/TTemps";
+import {useAppStore} from "@/stores/appStore";
+
+const appStore = useAppStore()
 
 const props = defineProps<{
-  type?: string
+  type?: string,
+  minValues: TTemps,
+  maxValues: TTemps,
 }>()
 
 const additionalClasses = computed(() => {
@@ -17,11 +23,11 @@ const additionalClasses = computed(() => {
        :class="additionalClasses"
   >
     <div class="temp-range__start">
-      07℃
+      {{ appStore.getTempText(props.minValues) }}
     </div>
     <div class="temp-range__divider"></div>
     <div class="temp-range__end">
-      17℉
+      {{ appStore.getTempText(props.maxValues) }}
     </div>
   </div>
 </template>

@@ -6,17 +6,17 @@ import WeatherIcon from '@/components/WeatherIcon.vue'
 <template>
   <div class="day-card">
     <div class="day-card__visual">
-      <WeatherIcon class="day-card__icon"/>
+<!--      <WeatherIcon class="day-card__icon"/>-->
       <div class="day-card__precip-chance-wrapper">
         <div class="day-card__precip-chance">
           17%
         </div>
       </div>
     </div>
-    <TempRange
-        class="day-card__temp-range"
-        type="camel"
-    />
+<!--    <TempRange-->
+<!--        class="day-card__temp-range"-->
+<!--        type="camel"-->
+<!--    />-->
     <div class="day-card__day-info">
       <div class="day-card__day-of-week">
         Wednessday
