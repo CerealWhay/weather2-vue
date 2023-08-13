@@ -1,6 +1,33 @@
 <script setup lang="ts">
 import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.vue";
 import {PaperAirplaneIcon} from '@heroicons/vue/24/outline';
+import type {TWindSpeed} from "@/types/TWindSpeed";
+import {computed} from 'vue';
+import {useAppStore} from "@/stores/appStore";
+
+const appStore = useAppStore()
+
+const props = defineProps<{
+  windSpeed: TWindSpeed,
+  windDirection: string,
+  windDirectionDeg: number,
+}>()
+
+const windSpeedFixed = computed<number>(() => {
+  if (appStore.selectedTempType.type === 'c') return props.windSpeed.k.toFixed(1)
+  if (appStore.selectedTempType.type === 'f') return props.windSpeed.m.toFixed(1)
+  return 0
+})
+const speedExt = computed<string>(() => {
+  if (appStore.selectedTempType.type === 'c') return 'km/h'
+  if (appStore.selectedTempType.type === 'f') return 'mp/h'
+  return ''
+})
+
+const windDirectionDegStyle = computed<string>(() => {
+  return `transform: rotate(${props.windDirectionDeg - 90}deg);`
+})
+
 </script>
 
 <template>
@@ -10,20 +37,20 @@ import {PaperAirplaneIcon} from '@heroicons/vue/24/outline';
   >
     <div class="details-card-wind__speed">
       <div class="details-card-wind__speed-value">
-        7.70
+        {{ windSpeedFixed }}
       </div>
       <div class="details-card-wind__speed-desc">
-        km/h
+        {{ speedExt }}
       </div>
     </div>
     <div class="details-card-wind__direction">
       <div class="details-card-wind__direction-text">
-        WSW
+        {{ windDirection }}
       </div>
       <div class="details-card-wind__direction-pinter">
         <PaperAirplaneIcon
             class="details-card-wind__direction-pinter-icon"
-            style="transform: rotate(45deg);"
+            :style="windDirectionDegStyle"
         />
       </div>
     </div>

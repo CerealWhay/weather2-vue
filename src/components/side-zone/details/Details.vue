@@ -5,11 +5,13 @@ import UvCard from "@/components/side-zone/details/UvCard.vue";
 import {computed} from 'vue';
 import {useAppStore} from "@/stores/appStore";
 import {useApiStore} from "@/stores/apiStore";
+import type {TWindSpeed} from "@/types/TWindSpeed";
+import type {TOtherDetailBlock} from "@/types/TOtherDetailBlock";
 
 const apiStore = useApiStore()
 const appStore = useAppStore()
 
-const realFeelBlock = computed(() => {
+const realFeelBlock = computed<TOtherDetailBlock>(() => {
   const value = appStore.getTempText({
     tempC: apiStore.current.feelslike_c,
     tempF: apiStore.current.feelslike_f,
@@ -20,14 +22,19 @@ const realFeelBlock = computed(() => {
   }
 })
 
-const precipitationBlock = computed(() => ({
+const precipitationBlock = computed<TOtherDetailBlock>(() => ({
   label: 'Precipitation',
   value: `${apiStore.current.precip_mm} mm`,
 }))
 
-const humidityBlock = computed(() => ({
+const humidityBlock = computed<TOtherDetailBlock>(() => ({
   label: 'Humidity',
   value: `${apiStore.current.humidity}%`,
+}))
+
+const windSpeed = computed<TWindSpeed>(() => ({
+  k: apiStore.current.wind_kph,
+  m: apiStore.current.wind_mph,
 }))
 
 </script>
@@ -39,6 +46,9 @@ const humidityBlock = computed(() => ({
     </div>
     <div class="current-details__wind-uv">
       <WindCard
+       :wind-direction="apiStore.current.wind_dir"
+       :wind-direction-deg="apiStore.current.wind_degree"
+       :wind-speed="windSpeed"
       />
       <UvCard
           :uv-value="apiStore.current.uv"

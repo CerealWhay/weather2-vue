@@ -20,6 +20,7 @@ export const defaultApiValue: TApiData = {
         wind_mph: 0,
         wind_kph: 0,
         wind_dir: '',
+        wind_degree: 0,
         precip_mm: 0,
         precip_in: 0,
         humidity: 0,

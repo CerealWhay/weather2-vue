@@ -6,9 +6,9 @@ const props = defineProps<{
   uvValue: number,
 }>()
 
-const ValueLineWidth = computed(() => `width: ${(props.uvValue / 12) * 100}%;`)
+const ValueLineWidth = computed<string>(() => `width: ${(props.uvValue / 12) * 100}%;`)
 
-const ValueLineClass = computed(() => {
+const ValueLineClass = computed<string>(() => {
   if (props.uvValue <= 2) return 'uv-scale__value-line--green';
   if (props.uvValue <= 5) return 'uv-scale__value-line--yellow';
   if (props.uvValue <= 7) return 'uv-scale__value-line--orange';
