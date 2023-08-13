@@ -9,6 +9,7 @@ export interface TCurrentWeatherData {
     condition: TCondition,
     wind_mph: number,
     wind_kph: number,
+    wind_degree: number,
     wind_dir: string,
     precip_mm: number,
     precip_in: number,

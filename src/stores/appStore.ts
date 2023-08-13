@@ -19,8 +19,8 @@ export const useAppStore = defineStore('appStore', () => {
     }
 
     const getTempText = (temps: TTemps): string => {
-        let temp_c: number = Math.round(temps.tempC)
-        let temp_f: number = Math.round(temps.tempF)
+        const temp_c: number = Math.round(temps.tempC)
+        const temp_f: number = Math.round(temps.tempF)
 
         if (selectedTempType.value.type === 'c') {
             return `${temp_c}${selectedTempType.value.symbol}`

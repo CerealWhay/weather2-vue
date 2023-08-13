@@ -1,5 +1,21 @@
 <script setup lang="ts">
 import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.vue";
+import {computed} from 'vue';
+
+const props = defineProps<{
+  uvValue: number,
+}>()
+
+const ValueLineWidth = computed(() => `width: ${(props.uvValue / 12) * 100}%;`)
+
+const ValueLineClass = computed(() => {
+  if (props.uvValue <= 2) return 'uv-scale__value-line--green';
+  if (props.uvValue <= 5) return 'uv-scale__value-line--yellow';
+  if (props.uvValue <= 7) return 'uv-scale__value-line--orange';
+  if (props.uvValue <= 10) return 'uv-scale__value-line--red';
+  if (props.uvValue <= 12) return 'uv-scale__value-line--blue';
+  return '';
+})
 </script>
 
 <template>
@@ -8,7 +24,7 @@ import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.
       class="details-card-uv"
   >
     <div class="details-card-uv__value">
-      11
+      {{uvValue}}
     </div>
     <div class="details-card-uv__scale uv-scale">
       <div class="uv-scale__baseline">
@@ -21,13 +37,13 @@ import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.
         <div class="uv-scale__dash uv-scale__dash--right">
           <div class="uv-scale__dash-line"></div>
           <div class="uv-scale__num">
-            10
+            9
           </div>
         </div>
       </div>
       <div class="uv-scale__value-line"
-           :class="{'uv-scale__value-line--green': true}"
-           style="width: 45%;"
+           :class="ValueLineClass"
+           :style="ValueLineWidth"
       ></div>
     </div>
   </detail-card-wrapper>
@@ -97,7 +113,6 @@ import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.
 
   .uv-scale__value-line {
     position: absolute;
-    width: 25%;
     height: 100%;
     top: 0;
     border-radius: 3px;

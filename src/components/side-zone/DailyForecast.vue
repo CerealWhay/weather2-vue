@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import DayCard from "@/components/side-zone/DayCard.vue";
+import {useApiStore} from "@/stores/apiStore";
+
+const apiStore = useApiStore()
 </script>
 
 <template>
   <div class="daily-forecast">
 
-    <div class="daily-forecast__day-wrapper">
-      <DayCard/>
-    </div>
-    <div class="daily-forecast__day-wrapper">
-      <DayCard/>
-    </div>
-    <div class="daily-forecast__day-wrapper">
-      <DayCard/>
+    <div v-for="(day, key) in apiStore.forecastDay"
+         :key="key"
+         class="daily-forecast__day-wrapper"
+    >
+      <DayCard
+          :day-info="day"
+      />
     </div>
 
   </div>
@@ -23,6 +25,7 @@ import DayCard from "@/components/side-zone/DayCard.vue";
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow: auto;
 
   .daily-forecast__day-wrapper {
     &:not(:last-child) {

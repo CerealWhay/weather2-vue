@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import WeatherIcon from "@/components/WeatherIcon.vue";
+import PrecipChance from "@/components/PrecipChance.vue";
 </script>
 
 <template>
@@ -8,6 +9,11 @@ import WeatherIcon from "@/components/WeatherIcon.vue";
       14 PM
     </div>
 <!--    <WeatherIcon class="hour-card__icon"/>-->
+<!--    <PrecipChance-->
+<!--        class="hour-card__precip-chance"-->
+<!--        :snow-chance="props.dayInfo.day.daily_chance_of_snow"-->
+<!--        :rain-chance="props.dayInfo.day.daily_chance_of_rain"-->
+<!--    />-->
     <div class="hour-card__precip-chance">
       17%
     </div>
@@ -50,13 +56,12 @@ import WeatherIcon from "@/components/WeatherIcon.vue";
   }
 
   .hour-card__precip-chance {
-    text-align: center;
-    font-size: 14px;
-    font-weight: 200;
     height: 20px;
     @include respond-to(handhelds) {
-      height: 10px;
-      font-size: 10px;
+      .precip__number {
+        height: 10px;
+        font-size: 10px;
+      }
     }
   }
 

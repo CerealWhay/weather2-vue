@@ -23,13 +23,13 @@ const formattedDateText = computed<string>(() => {
 })
 
 const minTodayTemp = computed<TTemps>((): TTemps => ({
-  tempC: apiStore.forecast.forecastday[0].day.mintemp_c,
-  tempF: apiStore.forecast.forecastday[0].day.mintemp_f,
+  tempC: apiStore.forecastDay[0].day.mintemp_c,
+  tempF: apiStore.forecastDay[0].day.mintemp_f,
 }))
 
 const maxTodayTemp = computed<TTemps>((): TTemps => ({
-  tempC: apiStore.forecast.forecastday[0].day.maxtemp_c,
-  tempF: apiStore.forecast.forecastday[0].day.maxtemp_f,
+  tempC: apiStore.forecastDay[0].day.maxtemp_c,
+  tempF: apiStore.forecastDay[0].day.maxtemp_f,
 }))
 </script>
 

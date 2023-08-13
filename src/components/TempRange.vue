@@ -23,11 +23,11 @@ const additionalClasses = computed(() => {
        :class="additionalClasses"
   >
     <div class="temp-range__start">
-      {{ appStore.getTempText(props.minValues) }}
+      {{ appStore.getTempText(props.maxValues) }}
     </div>
     <div class="temp-range__divider"></div>
     <div class="temp-range__end">
-      {{ appStore.getTempText(props.maxValues) }}
+      {{ appStore.getTempText(props.minValues) }}
     </div>
   </div>
 </template>

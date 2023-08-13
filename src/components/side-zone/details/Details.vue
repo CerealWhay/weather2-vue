@@ -2,6 +2,34 @@
 import OtherDetail from "@/components/side-zone/details/OtherDetail.vue";
 import WindCard from "@/components/side-zone/details/WindCard.vue";
 import UvCard from "@/components/side-zone/details/UvCard.vue";
+import {computed} from 'vue';
+import {useAppStore} from "@/stores/appStore";
+import {useApiStore} from "@/stores/apiStore";
+
+const apiStore = useApiStore()
+const appStore = useAppStore()
+
+const realFeelBlock = computed(() => {
+  const value = appStore.getTempText({
+    tempC: apiStore.current.feelslike_c,
+    tempF: apiStore.current.feelslike_f,
+  })
+  return {
+    label: 'Real Feel',
+    value: value,
+  }
+})
+
+const precipitationBlock = computed(() => ({
+  label: 'Precipitation',
+  value: `${apiStore.current.precip_mm} mm`,
+}))
+
+const humidityBlock = computed(() => ({
+  label: 'Humidity',
+  value: `${apiStore.current.humidity}%`,
+}))
+
 </script>
 
 <template>
@@ -11,27 +39,23 @@ import UvCard from "@/components/side-zone/details/UvCard.vue";
     </div>
     <div class="current-details__wind-uv">
       <WindCard
-          class="current-details__card"
       />
       <UvCard
-          class="current-details__card"
+          :uv-value="apiStore.current.uv"
       />
     </div>
     <div class="current-details__other-details">
       <OtherDetail
-          class="current-details__other-detail"
-          title="Real Feel"
-          value="08℃"
+          :title="realFeelBlock.label"
+          :value="realFeelBlock.value"
       />
       <OtherDetail
-          class="current-details__other-detail"
-          title="Precipitation"
-          value="8 mm"
+          :title="precipitationBlock.label"
+          :value="precipitationBlock.value"
       />
       <OtherDetail
-          class="current-details__other-detail"
-          title="Humidity"
-          value="62%"
+          :title="humidityBlock.label"
+          :value="humidityBlock.value"
       />
     </div>
   </div>
@@ -39,7 +63,9 @@ import UvCard from "@/components/side-zone/details/UvCard.vue";
 
 <style lang="scss">
 .current-details {
-  padding: 16px 0;
+  margin: 16px 0;
+  height: 100%;
+  overflow: auto;
 
   .current-details__title {
     font-size: 24px;
@@ -50,9 +76,6 @@ import UvCard from "@/components/side-zone/details/UvCard.vue";
   .current-details__wind-uv {
     display: flex;
     gap: 16px;
-
-    .current-details__card {
-    }
   }
 
   .current-details__other-details {
@@ -61,9 +84,6 @@ import UvCard from "@/components/side-zone/details/UvCard.vue";
     display: flex;
     flex-direction: column;
     gap: 32px;
-
-    .current-details__other-detail {
-    }
   }
 }
 </style>

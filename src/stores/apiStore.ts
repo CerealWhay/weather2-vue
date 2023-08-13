@@ -12,7 +12,8 @@ export const useApiStore = defineStore('apiStore', () => {
     const _apiData = ref<TApiData>(defaultApiValue)
     const location = computed(() => _apiData.value.location)
     const current = computed(() => _apiData.value.current)
-    const forecast = computed(() => _apiData.value.forecast)
+    const forecastDay = computed(() => _apiData.value.forecast.forecastday)
+    // const forecastHourly = computed(() => _apiData.value.forecast.forecastday)
 
     const _getData = async (route: string, params: Object): Promise<AxiosPromise> => {
         return await axios.get(
@@ -31,10 +32,10 @@ export const useApiStore = defineStore('apiStore', () => {
     }
 
     return {
-        _apiData,
         getWeatherCity,
         location,
         current,
-        forecast
+        forecastDay,
+        // forecastHourly,
     }
 })
