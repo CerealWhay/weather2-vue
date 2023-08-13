@@ -1,24 +1,52 @@
 <script setup lang="ts">
 import WeatherIcon from "@/components/WeatherIcon.vue";
 import PrecipChance from "@/components/PrecipChance.vue";
+import type {TForecastHour} from "@/types/api/TForecastHour";
+import {computed} from "vue";
+import {useAppStore} from "@/stores/appStore";
+import moment from "moment-timezone";
+import {useApiStore} from "@/stores/apiStore";
+
+const appStore = useAppStore()
+const apiStore = useApiStore()
+
+const props = defineProps<{
+  hourInfo: TForecastHour,
+}>()
+
+const mainTempText = computed<string>(() => {
+  return appStore.getTempText({
+    tempC: props.hourInfo.temp_c,
+    tempF: props.hourInfo.temp_f,
+  })
+})
+
+const formattedDateText = computed<string>(() => {
+  return moment(props.hourInfo.time_epoch * 1000)
+      .tz(apiStore.location.tz_id)
+      .format('HH A')
+})
+
 </script>
 
 <template>
   <div class="hour-card">
     <div class="hour-card__hour">
-      14 PM
+      {{ formattedDateText }}
     </div>
-<!--    <WeatherIcon class="hour-card__icon"/>-->
-<!--    <PrecipChance-->
-<!--        class="hour-card__precip-chance"-->
-<!--        :snow-chance="props.dayInfo.day.daily_chance_of_snow"-->
-<!--        :rain-chance="props.dayInfo.day.daily_chance_of_rain"-->
-<!--    />-->
-    <div class="hour-card__precip-chance">
-      17%
+    <WeatherIcon
+        class="hour-card__icon"
+        :condition="props.hourInfo.condition"
+    />
+    <div class="hour-card__precip-chance-wrapper">
+      <PrecipChance
+          class="hour-card__precip-chance"
+          :snow-chance="props.hourInfo.chance_of_snow"
+          :rain-chance="props.hourInfo.chance_of_rain"
+      />
     </div>
     <div class="hour-card__temp">
-      19℃
+      {{ mainTempText }}
     </div>
   </div>
 </template>
@@ -55,12 +83,15 @@ import PrecipChance from "@/components/PrecipChance.vue";
     }
   }
 
-  .hour-card__precip-chance {
+  .hour-card__precip-chance-wrapper {
     height: 20px;
-    @include respond-to(handhelds) {
-      .precip__number {
-        height: 10px;
-        font-size: 10px;
+    .hour-card__precip-chance {
+      height: inherit;
+      @include respond-to(handhelds) {
+        .precip__number {
+          height: 10px;
+          font-size: 10px;
+        }
       }
     }
   }

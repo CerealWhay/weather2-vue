@@ -3,8 +3,13 @@ import HourCard from "@/components/bottom-zone/HourCard.vue";
 import {Swiper, SwiperSlide} from 'swiper/vue';
 import {Navigation} from 'swiper/modules';
 import {ref} from 'vue';
+import {useApiStore} from "@/stores/apiStore";
+import {useAppStore} from "@/stores/appStore";
 
 const modules = ref([Navigation])
+
+const apiStore = useApiStore()
+const appStore = useAppStore()
 </script>
 
 <template>
@@ -15,97 +20,19 @@ const modules = ref([Navigation])
         :modules="modules"
         class="hour-forecast__slider"
     >
+
       <swiper-slide
+          v-for="(hour, key) in apiStore.forecastHourly"
+          :key="key"
           class="hour-forecast__hour-card-wrapper"
       >
         <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
+          <HourCard
+              :hour-info="hour"
+          />
         </div>
       </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
-      <swiper-slide
-          class="hour-forecast__hour-card-wrapper"
-      >
-        <div class="hour-forecast__hour-card-wrapper">
-          <HourCard/>
-        </div>
-      </swiper-slide>
+
     </swiper>
   </div>
 </template>

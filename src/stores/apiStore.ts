@@ -18,11 +18,12 @@ export const useApiStore = defineStore('apiStore', () => {
     const current = computed<TCurrentWeatherData>(() => _apiData.value.current)
     const forecastDay = computed<TForecastDay[]>(() => _apiData.value.forecast.forecastday)
     const forecastHourly = computed<TForecastHour[]>(() => {
-        const hours: TForecastHour[] = [];
+        let hours: TForecastHour[] = [];
         _apiData.value.forecast.forecastday.forEach(day => {
             hours.push(...day.hour)
         })
-        return hours
+        hours = hours.filter(hour => hour.time_epoch >= location.value.localtime_epoch)
+        return hours.slice(0, 24)
     })
 
     const _getData = async (route: string, params: Object): Promise<AxiosPromise> => {
