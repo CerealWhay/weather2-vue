@@ -1,5 +1,5 @@
 import type {TForecastDay} from '@/types/api/TForecastDay'
 
-export interface TForecast {
+export type TForecast = {
     forecastday: TForecastDay[]
 }

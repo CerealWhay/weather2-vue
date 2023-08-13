@@ -1,6 +1,6 @@
 import type {TCondition} from '@/types/api/TCondition'
 
-export interface TForecastDayDetail {
+export type TForecastDayDetail = {
     maxtemp_c: number,
     maxtemp_f: number,
     mintemp_c: number,

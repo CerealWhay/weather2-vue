@@ -1,6 +1,6 @@
 import type {TCondition} from '@/types/api/TCondition'
 
-export interface TForecastHour {
+export type TForecastHour = {
     time_epoch: number,
     time: string,
     temp_c: number,

@@ -4,7 +4,7 @@ import TempRange from "@/components/TempRange.vue";
 import {useApiStore} from "@/stores/apiStore"
 import {useAppStore} from "@/stores/appStore";
 import {computed} from "vue";
-import moment from 'moment';
+import moment from 'moment-timezone';
 import type {TTemps} from "@/types/TTemps";
 
 
@@ -19,7 +19,9 @@ const mainTempText = computed<string>(() => {
 })
 
 const formattedDateText = computed<string>(() => {
-  return moment(apiStore.location.localtime_epoch * 1000).format('HH:mm A - dddd, D MMM')
+  return moment(apiStore.location.localtime_epoch * 1000)
+      .tz(apiStore.location.tz_id)
+      .format('HH:mm A - dddd, D MMM')
 })
 
 const minTodayTemp = computed<TTemps>((): TTemps => ({

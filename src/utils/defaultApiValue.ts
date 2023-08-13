@@ -5,6 +5,7 @@ export const defaultApiValue: TApiData = {
         name: '',
         localtime_epoch: 0,
         localtime: '',
+        tz_id: 'Europe/London',
     },
     current: {
         last_updated_epoch: 0,

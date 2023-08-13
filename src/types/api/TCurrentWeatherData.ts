@@ -1,6 +1,6 @@
 import type {TCondition} from "@/types/api/TCondition";
 
-export interface TCurrentWeatherData {
+export type TCurrentWeatherData = {
     last_updated_epoch: number,
     last_updated: string,
     temp_c: number,
