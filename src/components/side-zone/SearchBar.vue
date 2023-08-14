@@ -1,18 +1,33 @@
 <script setup lang="ts">
 import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
+import SearchedCities from "@/components/SearchedCities.vue";
+import {useSearchStore} from "@/stores/searchStore";
+
+const searchStore = useSearchStore()
 </script>
 
 <template>
   <div class="search-bar">
-    <div class="search-bar__input-wrapper">
+    <div class="search-bar__input-wrapper"
+         @click.stop
+    >
       <input
           type="text"
           class="search-bar__input"
           placeholder="Type city here..."
+          @keyup.enter="searchStore.selectCity(searchStore.searchString)"
+          v-model="searchStore.searchString"
       >
-      <div class="search-bar__search-btn">
+      <div class="search-bar__search-btn"
+           @click="searchStore.selectCity(searchStore.searchString)"
+      >
         <MagnifyingGlassIcon class="icon search-bar__search-icon"/>
       </div>
+
+      <SearchedCities
+          v-if="searchStore.isSearchSelectorOpen"
+          class="search-bar__searched-cities"
+      />
     </div>
     <div class="search-bar__geo-btn">
       <MapPinIcon class="icon search-bar__geo-icon"/>
@@ -64,6 +79,12 @@ import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
           color: rgba(255, 255, 255, 0.75);
         }
       }
+    }
+
+    .search-bar__searched-cities {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
     }
 
     &:hover {

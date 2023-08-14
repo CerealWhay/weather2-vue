@@ -3,11 +3,11 @@ import WeatherIcon from "@/components/WeatherIcon.vue";
 import PrecipChance from "@/components/PrecipChance.vue";
 import type {TForecastHour} from "@/types/api/TForecastHour";
 import {computed} from "vue";
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 import moment from "moment-timezone";
 import {useApiStore} from "@/stores/apiStore";
 
-const appStore = useAppStore()
+const tempStore = useTempStore()
 const apiStore = useApiStore()
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const mainTempText = computed<string>(() => {
-  return appStore.getTempText({
+  return tempStore.getTempText({
     tempC: props.hourInfo.temp_c,
     tempF: props.hourInfo.temp_f,
   })

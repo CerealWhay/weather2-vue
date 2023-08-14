@@ -2,17 +2,17 @@
 import WeatherIcon from "@/components/WeatherIcon.vue";
 import TempRange from "@/components/TempRange.vue";
 import {useApiStore} from "@/stores/apiStore"
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 import {computed} from "vue";
 import moment from 'moment-timezone';
 import type {TTemps} from "@/types/TTemps";
 
 
 const apiStore = useApiStore()
-const appStore = useAppStore()
+const tempStore = useTempStore()
 
 const mainTempText = computed<string>(() => {
-  return appStore.getTempText({
+  return tempStore.getTempText({
     tempC: apiStore.current.temp_c,
     tempF: apiStore.current.temp_f,
   })

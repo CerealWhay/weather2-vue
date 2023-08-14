@@ -3,7 +3,7 @@ import {computed, ref} from 'vue'
 import type {TTempType} from "@/types/TTempType";
 import type {TTemps} from "@/types/TTemps";
 
-export const useAppStore = defineStore('appStore', () => {
+export const useTempStore = defineStore('tempStore', () => {
     const tempTypes = ref<TTempType[]>([
         {name: 'celsius', symbol: '℃', type: 'c'},
         {name: 'fahrenheit', symbol: '℉', type: 'f'}
@@ -12,7 +12,9 @@ export const useAppStore = defineStore('appStore', () => {
         {name: 'celsius', symbol: '℃', type: 'c'}
     )
     const notSelectedTempType = computed<TTempType>(() => {
-        return tempTypes.value.find(type => type.symbol !== selectedTempType.value.symbol)
+        return tempTypes.value.find(type => {
+            return type.symbol !== selectedTempType.value.symbol
+        }) as TTempType
     })
 
     const selectTempType = (tempType: TTempType): void => {
@@ -37,6 +39,6 @@ export const useAppStore = defineStore('appStore', () => {
         selectedTempType,
         notSelectedTempType,
         selectTempType,
-        getTempText
+        getTempText,
     }
 })

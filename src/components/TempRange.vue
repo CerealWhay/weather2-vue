@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {computed} from 'vue'
 import type {TTemps} from "@/types/TTemps";
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 
-const appStore = useAppStore()
+const tempStore = useTempStore()
 
 const props = defineProps<{
   type?: string,
@@ -23,11 +23,11 @@ const additionalClasses = computed(() => {
        :class="additionalClasses"
   >
     <div class="temp-range__start">
-      {{ appStore.getTempText(props.maxValues) }}
+      {{ tempStore.getTempText(props.maxValues) }}
     </div>
     <div class="temp-range__divider"></div>
     <div class="temp-range__end">
-      {{ appStore.getTempText(props.minValues) }}
+      {{ tempStore.getTempText(props.minValues) }}
     </div>
   </div>
 </template>

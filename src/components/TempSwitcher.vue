@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import {useAppStore} from "@/stores/appStore"
+import {useTempStore} from "@/stores/tempStore"
 
-const appStore = useAppStore()
+const tempStore = useTempStore()
 
 const isTempTypeSelected = (typeName: string): Boolean => {
-  return typeName === appStore.selectedTempType.name
+  return typeName === tempStore.selectedTempType.name
 }
 </script>
 
 <template>
   <div class="temp-switcher">
     <div
-        v-for="(type, key) of appStore.tempTypes"
+        v-for="(type, key) of tempStore.tempTypes"
         :key="key"
         class="temp-switcher__type-wrapper"
     >
       <div
-          @click="appStore.selectTempType(type)"
+          @click="tempStore.selectTempType(type)"
           class="temp-switcher__type"
           :class="{'temp-switcher__type--selected': isTempTypeSelected(type.name)}"
       >

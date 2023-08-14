@@ -8,7 +8,7 @@ import { onMounted } from 'vue'
 const apiStore = useApiStore()
 
 onMounted(async () => {
-  await apiStore.getWeatherCity('honolulu')
+  await apiStore.getWeatherCity()
 })
 
 </script>

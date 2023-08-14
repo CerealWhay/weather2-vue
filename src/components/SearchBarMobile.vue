@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
+import {useSearchStore} from "@/stores/searchStore";
+import SearchedCities from "@/components/SearchedCities.vue";
 
-const appStore = useAppStore()
+const tempStore = useTempStore()
+const searchStore = useSearchStore()
 
 </script>
 
@@ -21,14 +24,20 @@ const appStore = useAppStore()
           type="text"
           class="search-bar-mobile__input"
           placeholder="Type city here..."
+          @keyup.enter="searchStore.selectCity(searchStore.searchString)"
+          v-model="searchStore.searchString"
       >
+      <SearchedCities
+          v-if="searchStore.isSearchSelectorOpen"
+          class="search-bar-mobile__searched-cities"
+      />
     </div>
 
     <div class="search-bar-mobile__btn"
-         @click="appStore.selectTempType(appStore.notSelectedTempType)"
+         @click="tempStore.selectTempType(tempStore.notSelectedTempType)"
     >
       <div class="mobile-icon search-bar-mobile__icon">
-        {{ appStore.notSelectedTempType.symbol }}
+        {{ tempStore.notSelectedTempType.symbol }}
       </div>
     </div>
 
@@ -43,6 +52,7 @@ const appStore = useAppStore()
 
   .search-bar-mobile__input-wrapper {
     width: 100%;
+    position: relative;
 
     .search-bar-mobile__input {
       width: 100%;
@@ -59,6 +69,12 @@ const appStore = useAppStore()
         color: rgba(255, 255, 255, 0.50);
         transition: .3s color;
       }
+    }
+    
+    .search-bar-mobile__searched-cities {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
     }
   }
 

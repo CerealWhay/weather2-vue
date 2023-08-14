@@ -3,9 +3,9 @@ import DetailCardWrapper from "@/components/side-zone/details/DetailCardWrapper.
 import {PaperAirplaneIcon} from '@heroicons/vue/24/outline';
 import type {TWindSpeed} from "@/types/TWindSpeed";
 import {computed} from 'vue';
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 
-const appStore = useAppStore()
+const tempStore = useTempStore()
 
 const props = defineProps<{
   windSpeed: TWindSpeed,
@@ -14,13 +14,13 @@ const props = defineProps<{
 }>()
 
 const windSpeedFixed = computed<number>(() => {
-  if (appStore.selectedTempType.type === 'c') return props.windSpeed.k.toFixed(1)
-  if (appStore.selectedTempType.type === 'f') return props.windSpeed.m.toFixed(1)
+  if (tempStore.selectedTempType.type === 'c') return props.windSpeed.k.toFixed(1)
+  if (tempStore.selectedTempType.type === 'f') return props.windSpeed.m.toFixed(1)
   return 0
 })
 const speedExt = computed<string>(() => {
-  if (appStore.selectedTempType.type === 'c') return 'km/h'
-  if (appStore.selectedTempType.type === 'f') return 'mp/h'
+  if (tempStore.selectedTempType.type === 'c') return 'km/h'
+  if (tempStore.selectedTempType.type === 'f') return 'mp/h'
   return ''
 })
 

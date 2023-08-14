@@ -4,12 +4,12 @@ import {Swiper, SwiperSlide} from 'swiper/vue';
 import {Navigation} from 'swiper/modules';
 import {ref} from 'vue';
 import {useApiStore} from "@/stores/apiStore";
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 
 const modules = ref([Navigation])
 
 const apiStore = useApiStore()
-const appStore = useAppStore()
+const tempStore = useTempStore()
 </script>
 
 <template>

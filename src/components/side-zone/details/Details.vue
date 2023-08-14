@@ -3,16 +3,16 @@ import OtherDetail from "@/components/side-zone/details/OtherDetail.vue";
 import WindCard from "@/components/side-zone/details/WindCard.vue";
 import UvCard from "@/components/side-zone/details/UvCard.vue";
 import {computed} from 'vue';
-import {useAppStore} from "@/stores/appStore";
+import {useTempStore} from "@/stores/tempStore";
 import {useApiStore} from "@/stores/apiStore";
 import type {TWindSpeed} from "@/types/TWindSpeed";
 import type {TOtherDetailBlock} from "@/types/TOtherDetailBlock";
 
 const apiStore = useApiStore()
-const appStore = useAppStore()
+const tempStore = useTempStore()
 
 const realFeelBlock = computed<TOtherDetailBlock>(() => {
-  const value = appStore.getTempText({
+  const value = tempStore.getTempText({
     tempC: apiStore.current.feelslike_c,
     tempF: apiStore.current.feelslike_f,
   })

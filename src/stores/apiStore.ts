@@ -8,6 +8,8 @@ import type {TForecastHour} from "@/types/api/TForecastHour";
 import type {TLocation} from "@/types/api/TLocation";
 import type {TCurrentWeatherData} from "@/types/api/TCurrentWeatherData";
 import type {TForecastDay} from "@/types/api/TForecastDay";
+import type {TSearchedCity} from "@/types/api/TSearchedCity";
+import {debounce} from "@/utils/debounce";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -26,6 +28,8 @@ export const useApiStore = defineStore('apiStore', () => {
         return hours.slice(0, 24)
     })
 
+    const searchedCities = ref<TSearchedCity[]>([])
+
     const _getData = async (route: string, params: Object): Promise<AxiosPromise> => {
         return await axios.get(
             `${baseUrl}${route}`,
@@ -33,13 +37,23 @@ export const useApiStore = defineStore('apiStore', () => {
         )
     }
 
-    const getWeatherCity = async (query: string): Promise<void> => {
-        const response = await _getData('/forecast.json', {
+    const getCities = async (query: string): Promise<void> => {
+        const response = await _getData('/search.json', {
             q: query,
+            key: apiKey,
+        })
+        searchedCities.value = response.data
+    }
+
+    const getWeatherCity = async (query?: string): Promise<void> => {
+        const searchQuery = query || localStorage.getItem('lastSearchQuery') || "detroit"
+        const response = await _getData('/forecast.json', {
+            q: searchQuery,
             key: apiKey,
             days: 3,
         })
         _apiData.value = response.data
+        localStorage.setItem('lastSearchQuery', searchQuery)
     }
 
     return {
@@ -48,5 +62,8 @@ export const useApiStore = defineStore('apiStore', () => {
         current,
         forecastDay,
         forecastHourly,
+
+        getCities,
+        searchedCities,
     }
 })
