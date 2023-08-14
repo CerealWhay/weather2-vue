@@ -72,6 +72,7 @@ const appStore = useAppStore()
   .hour-forecast__slider {
     padding: 16px;
     overflow: hidden;
+    touch-action: pan-y;
 
     @include respond-to(handhelds) {
       padding: 16px 8px;

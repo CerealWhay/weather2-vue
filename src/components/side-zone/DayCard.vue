@@ -4,8 +4,11 @@ import WeatherIcon from '@/components/WeatherIcon.vue'
 import type {TForecastDay} from "@/types/api/TForecastDay";
 import type {TTemps} from "@/types/TTemps";
 import {computed} from "vue";
-import moment from "moment/moment";
+import moment from "moment-timezone";
 import PrecipChance from "@/components/PrecipChance.vue";
+import {useApiStore} from "@/stores/apiStore";
+
+const apiStore = useApiStore()
 
 const props = defineProps<{
   dayInfo: TForecastDay,
@@ -25,7 +28,9 @@ const formattedDateText = computed<string>(() => {
   return moment(props.dayInfo.date_epoch * 1000).format('DD/MM')
 })
 const formattedDayOfWeekText = computed<string>(() => {
-  return moment(props.dayInfo.date_epoch * 1000).format('dddd')
+  return moment(props.dayInfo.date_epoch * 1000)
+      .tz(apiStore.location.tz_id)
+      .format('dddd')
 })
 </script>
 

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
+import {useAppStore} from "@/stores/appStore";
+
+const appStore = useAppStore()
+
 </script>
 
 <template>
@@ -20,9 +24,11 @@ import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
       >
     </div>
 
-    <div class="search-bar-mobile__btn">
+    <div class="search-bar-mobile__btn"
+         @click="appStore.selectTempType(appStore.notSelectedTempType)"
+    >
       <div class="mobile-icon search-bar-mobile__icon">
-        ℃
+        {{ appStore.notSelectedTempType.symbol }}
       </div>
     </div>
 

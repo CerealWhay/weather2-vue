@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import type {TTempType} from "@/types/TTempType";
 import type {TTemps} from "@/types/TTemps";
 
@@ -8,10 +8,11 @@ export const useAppStore = defineStore('appStore', () => {
         {name: 'celsius', symbol: '℃', type: 'c'},
         {name: 'fahrenheit', symbol: '℉', type: 'f'}
     ]);
-    const selectedTempType = ref<TTempType>({
-        name: 'celsius',
-        symbol: '℃',
-        type: 'c',
+    const selectedTempType = ref<TTempType>(
+        {name: 'celsius', symbol: '℃', type: 'c'}
+    )
+    const notSelectedTempType = computed<TTempType>(() => {
+        return tempTypes.value.find(type => type.symbol !== selectedTempType.value.symbol)
     })
 
     const selectTempType = (tempType: TTempType): void => {
@@ -34,6 +35,7 @@ export const useAppStore = defineStore('appStore', () => {
     return {
         tempTypes,
         selectedTempType,
+        notSelectedTempType,
         selectTempType,
         getTempText
     }
