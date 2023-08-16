@@ -15,14 +15,11 @@ export const useSearchStore = defineStore('searchStore', () => {
     const toggleSelector = (isOpen: Boolean): void => {
         isSearchSelectorOpen.value = isOpen
     }
-    const _setSearchString = (queryString: string) => {
-        searchString.value = queryString
-    }
 
     const selectCity = async (query:string) => {
         await apiStore.getWeatherCity(query)
         toggleSelector(false)
-        _setSearchString('')
+        searchString.value = ''
     }
 
     watch(searchString, (query) => {

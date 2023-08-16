@@ -3,23 +3,40 @@ import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
 import {useTempStore} from "@/stores/tempStore";
 import {useSearchStore} from "@/stores/searchStore";
 import SearchedCities from "@/components/SearchedCities.vue";
+import {getUserLatLon} from "@/utils/getUserLatLon";
+import {useApiStore} from "@/stores/apiStore";
+import {ref} from "vue";
 
 const tempStore = useTempStore()
 const searchStore = useSearchStore()
+const apiStore = useApiStore()
 
+const isSearchBarOpen = ref<Boolean>(true)
+
+const getNavigationWeather = async () => {
+  await apiStore.getWeatherCity(await getUserLatLon())
+}
 </script>
 
 <template>
   <div class="search-bar-mobile">
 
     <div class="search-bar-mobile__btn">
-      <MapPinIcon class="mobile-icon search-bar-mobile__icon"/>
+      <MapPinIcon
+          class="mobile-icon search-bar-mobile__icon"
+          @click="getNavigationWeather"
+      />
     </div>
     <div class="search-bar-mobile__btn">
-      <MagnifyingGlassIcon class="mobile-icon search-bar-mobile__icon"/>
+      <MagnifyingGlassIcon
+          class="mobile-icon search-bar-mobile__icon"
+          @click="isSearchBarOpen = !isSearchBarOpen"
+      />
     </div>
 
-    <div class="search-bar-mobile__input-wrapper">
+    <div v-if="isSearchBarOpen"
+         class="search-bar-mobile__input-wrapper"
+    >
       <input
           type="text"
           class="search-bar-mobile__input"
@@ -64,6 +81,7 @@ const searchStore = useSearchStore()
       font-weight: 200;
       padding: 8px;
       font-size: 14px;
+      line-height: 16px;
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.50);

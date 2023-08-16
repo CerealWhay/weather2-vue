@@ -9,7 +9,7 @@ import type {TLocation} from "@/types/api/TLocation";
 import type {TCurrentWeatherData} from "@/types/api/TCurrentWeatherData";
 import type {TForecastDay} from "@/types/api/TForecastDay";
 import type {TSearchedCity} from "@/types/api/TSearchedCity";
-import {debounce} from "@/utils/debounce";
+import {getUserLatLon} from "@/utils/getUserLatLon";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -46,7 +46,11 @@ export const useApiStore = defineStore('apiStore', () => {
     }
 
     const getWeatherCity = async (query?: string): Promise<void> => {
-        const searchQuery = query || localStorage.getItem('lastSearchQuery') || "detroit"
+        const searchQuery = query
+            || localStorage.getItem('lastSearchQuery')
+            || await getUserLatLon()
+            || "detroit"
+
         const response = await _getData('/forecast.json', {
             q: searchQuery,
             key: apiKey,

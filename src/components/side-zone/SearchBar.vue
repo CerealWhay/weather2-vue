@@ -2,8 +2,15 @@
 import {MagnifyingGlassIcon, MapPinIcon} from '@heroicons/vue/24/solid';
 import SearchedCities from "@/components/SearchedCities.vue";
 import {useSearchStore} from "@/stores/searchStore";
+import {useApiStore} from "@/stores/apiStore";
+import {getUserLatLon} from "@/utils/getUserLatLon";
 
 const searchStore = useSearchStore()
+const apiStore = useApiStore()
+
+const getNavigationWeather = async () => {
+  await apiStore.getWeatherCity(await getUserLatLon())
+}
 </script>
 
 <template>
@@ -30,7 +37,10 @@ const searchStore = useSearchStore()
       />
     </div>
     <div class="search-bar__geo-btn">
-      <MapPinIcon class="icon search-bar__geo-icon"/>
+      <MapPinIcon
+          class="icon search-bar__geo-icon"
+          @click="getNavigationWeather"
+      />
     </div>
   </div>
 </template>
