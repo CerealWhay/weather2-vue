@@ -13,10 +13,10 @@ const props = defineProps<{
   windDirectionDeg: number,
 }>()
 
-const windSpeedFixed = computed<number>(() => {
+const windSpeedFixed = computed<string>(() => {
   if (tempStore.selectedTempType.type === 'c') return props.windSpeed.k.toFixed(1)
   if (tempStore.selectedTempType.type === 'f') return props.windSpeed.m.toFixed(1)
-  return 0
+  return "0.0"
 })
 const speedExt = computed<string>(() => {
   if (tempStore.selectedTempType.type === 'c') return 'km/h'
