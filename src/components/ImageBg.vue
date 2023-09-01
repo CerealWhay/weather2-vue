@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import {ref} from "vue";
-import bg from "@/assets/images/bg-test.jpg";
-import bg2 from "@/assets/images/bg2.jpeg";
+import {useApiStore} from "@/stores/apiStore";
 
-const bgLink = ref(bg2)
+const apiStore = useApiStore()
 </script>
 
 <template>
   <div class="image-bg">
     <img
-        :src="bgLink"
+        :src="apiStore.getBgSrc"
         alt=""
         class="image-bg-img"
     >
@@ -23,7 +21,7 @@ const bgLink = ref(bg2)
     height: 100%;
     display: block;
     object-fit: cover;
-    object-position: 0 0;
+    object-position: center;
     filter: brightness(75%);
   }
 }

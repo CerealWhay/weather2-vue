@@ -57,7 +57,7 @@ import SearchBarMobile from "@/components/SearchBarMobile.vue";
 
   .app-grid__bg {
     position: absolute;
-    width: inherit;
+    width: 100%;
     height: 100%;
     z-index: -1;
   }

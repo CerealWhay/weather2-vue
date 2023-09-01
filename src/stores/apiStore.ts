@@ -60,6 +60,12 @@ export const useApiStore = defineStore('apiStore', () => {
         localStorage.setItem('lastSearchQuery', searchQuery)
     }
 
+    const getBgSrc = computed<string>(() => {
+        const isDay: string = current.value.is_day ? 'day' : 'night';
+        const code: number = current.value.condition.code || 1000
+        return `/bgs/${isDay}/${code}.jpg`
+    })
+
     return {
         getWeatherCity,
         location,
@@ -69,5 +75,6 @@ export const useApiStore = defineStore('apiStore', () => {
 
         getCities,
         searchedCities,
+        getBgSrc,
     }
 })
