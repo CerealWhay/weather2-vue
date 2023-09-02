@@ -6,11 +6,18 @@ const apiStore = useApiStore()
 
 <template>
   <div class="image-bg">
-    <img
-        :src="apiStore.getBgSrc"
-        alt=""
-        class="image-bg-img"
+    <Transition
+        name="fade-short"
+        appear
+        mode="out-in"
     >
+      <img
+          :src="apiStore.getBgSrc"
+          :key="apiStore.getBgSrc"
+          alt=""
+          class="image-bg-img"
+      >
+    </Transition>
   </div>
 </template>
 

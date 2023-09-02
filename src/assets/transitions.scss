@@ -1,0 +1,41 @@
+$short_len: .3s;
+$normal_len: .6s;
+$easing: ease-in-out;
+
+.fade-short-enter-active,
+.fade-short-leave-active {
+  transition: opacity $short_len $easing;
+}
+.fade-short-enter-from,
+.fade-short-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $normal_len $easing;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: opacity $short_len $easing,
+              transform $short_len $easing;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(15px);
+}
+
+.uv-line-enter-active,
+.uv-line-leave-active {
+  transition: width $normal_len $easing;
+}
+.uv-line-enter-from,
+.uv-line-leave-to {
+  width: 0;
+}

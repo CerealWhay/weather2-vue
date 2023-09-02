@@ -19,17 +19,24 @@ const additionalClasses = computed(() => {
 </script>
 
 <template>
-  <div class="current-info__temp-range temp-range"
-       :class="additionalClasses"
+  <Transition
+      name="fade"
+      appear
+      mode="out-in"
   >
-    <div class="temp-range__start">
-      {{ tempStore.getTempText(props.maxValues) }}
+    <div class="current-info__temp-range temp-range"
+         :class="additionalClasses"
+         :key="tempStore.getTempText(props.maxValues)"
+    >
+      <div class="temp-range__start">
+        {{ tempStore.getTempText(props.maxValues) }}
+      </div>
+      <div class="temp-range__divider"></div>
+      <div class="temp-range__end">
+        {{ tempStore.getTempText(props.minValues) }}
+      </div>
     </div>
-    <div class="temp-range__divider"></div>
-    <div class="temp-range__end">
-      {{ tempStore.getTempText(props.minValues) }}
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <style lang="scss">

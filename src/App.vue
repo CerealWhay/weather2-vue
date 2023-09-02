@@ -4,6 +4,7 @@ import ImageBg from "@/components/ImageBg.vue";
 import TempSwitcher from "@/components/TempSwitcher.vue";
 import { useApiStore } from "@/stores/apiStore"
 import { onMounted } from 'vue'
+import Loader from "@/components/Loader.vue";
 
 const apiStore = useApiStore()
 
@@ -15,6 +16,9 @@ onMounted(async () => {
 
 <template>
   <div class="main-wrapper">
+    <Loader
+        class="main-wrapper__loader"
+    />
     <ImageBg
         class="main-wrapper__bg"
     />

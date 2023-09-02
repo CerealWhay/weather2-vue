@@ -9,22 +9,28 @@ const isTempTypeSelected = (typeName: string): Boolean => {
 </script>
 
 <template>
-  <div class="temp-switcher">
-    <div
-        v-for="(type, key) of tempStore.tempTypes"
-        :key="key"
-        class="temp-switcher__type-wrapper"
-    >
+  <Transition
+      name="fade"
+      appear
+      mode="out-in"
+  >
+    <div class="temp-switcher">
       <div
-          @click="tempStore.selectTempType(type)"
-          class="temp-switcher__type"
-          :class="{'temp-switcher__type--selected': isTempTypeSelected(type.name)}"
+          v-for="(type, key) of tempStore.tempTypes"
+          :key="key"
+          class="temp-switcher__type-wrapper"
       >
-        {{ type.symbol }}
+        <div
+            @click="tempStore.selectTempType(type)"
+            class="temp-switcher__type"
+            :class="{'temp-switcher__type--selected': isTempTypeSelected(type.name)}"
+        >
+          {{ type.symbol }}
+        </div>
+        <div class="temp-switcher__divider"></div>
       </div>
-      <div class="temp-switcher__divider"></div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style lang="scss">

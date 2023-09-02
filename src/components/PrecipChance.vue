@@ -14,13 +14,21 @@ const precip = computed<number>(() => {
 </script>
 
 <template>
-  <div v-if="precip"
-       class="precip__wrapper"
+  <Transition
+      name="fade-short"
+      appear
+      mode="out-in"
   >
-    <div class="precip__number">
-      {{ precip }}%
+    <div v-if="precip"
+         class="precip__wrapper"
+         :key="precip"
+    >
+      <div class="precip__number">
+        {{ precip }}%
+      </div>
     </div>
-  </div>
+  </Transition>
+
 </template>
 
 <style lang="scss">

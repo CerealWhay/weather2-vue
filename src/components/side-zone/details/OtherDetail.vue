@@ -10,9 +10,17 @@ const props = defineProps<{
     <div class="other-detail__title">
       {{ props.title }}
     </div>
-    <div class="other-detail__value">
-      {{ props.value }}
-    </div>
+    <Transition
+        name="fade"
+        appear
+        mode="out-in"
+    >
+      <div class="other-detail__value"
+           :key="props.value"
+      >
+        {{ props.value }}
+      </div>
+    </Transition>
   </div>
 </template>
 

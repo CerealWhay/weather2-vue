@@ -15,7 +15,7 @@ export const defaultApiValue: TApiData = {
         is_day: 0,
         condition: {
             text: '',
-            icon: '',
+            icon: 'https://cdn.weatherapi.com/weather/64x64/day/119.png',
             code: 0,
         },
         wind_mph: 0,
@@ -43,7 +43,7 @@ export const defaultApiValue: TApiData = {
                     daily_chance_of_snow: 0,
                     condition: {
                         text: '',
-                        icon: '',
+                        icon: 'https://cdn.weatherapi.com/weather/64x64/day/119.png',
                         code: 0,
                     },
                 },
@@ -56,7 +56,7 @@ export const defaultApiValue: TApiData = {
                         is_day: 0,
                         condition: {
                             text: '',
-                            icon: '',
+                            icon: 'https://cdn.weatherapi.com/weather/64x64/day/119.png',
                             code: 0,
                         },
                         chance_of_rain: 0,

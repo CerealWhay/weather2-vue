@@ -9,6 +9,7 @@ const searchStore = useSearchStore()
 const apiStore = useApiStore()
 
 const getNavigationWeather = async () => {
+  apiStore.isLoading = true
   await apiStore.getWeatherCity(await getUserLatLon())
 }
 </script>

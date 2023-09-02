@@ -8,31 +8,41 @@ const searchStore = useSearchStore()
 </script>
 
 <template>
-  <div v-if="apiStore.searchedCities.length"
-       class="searched-cities"
+  <Transition
+      name="fade-short"
+      appear
+      mode="out-in"
   >
-    <div
-        v-for="(cityData, key) in apiStore.searchedCities"
-        :key="key"
-        class="searched-city"
+    <div v-if="apiStore.searchedCities.length"
+         class="searched-cities"
     >
-      <div class="searched-city__wrapper"
-           @click="searchStore.selectCity(cityData.name)"
+      <TransitionGroup
+          name="list"
       >
-        <div class="searched-city__country">
-          {{ cityData.country }}
+        <div
+            v-for="(cityData, key) in apiStore.searchedCities"
+            :key="key"
+            class="searched-city"
+        >
+          <div class="searched-city__wrapper"
+               @click="searchStore.selectCity(cityData.name)"
+          >
+            <div class="searched-city__country">
+              {{ cityData.country }}
+            </div>
+            <div class="searched-city__city">
+              {{ cityData.name }}
+            </div>
+          </div>
         </div>
-        <div class="searched-city__city">
-          {{ cityData.name }}
-        </div>
+      </TransitionGroup>
+    </div>
+    <div v-else class="searched-cities">
+      <div class="searched-cities__plug">
+        No matching location found.
       </div>
     </div>
-  </div>
-  <div v-else class="searched-cities">
-    <div class="searched-cities__plug">
-      No matching location found.
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <style lang="scss">

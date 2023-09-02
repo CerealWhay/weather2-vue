@@ -53,14 +53,22 @@ const formattedDayOfWeekText = computed<string>(() => {
         :min-values="minTodayTemp"
         :max-values="maxTodayTemp"
     />
-    <div class="day-card__day-info">
-      <div class="day-card__day-of-week">
-        {{ formattedDayOfWeekText }}
+    <Transition
+        name="fade"
+        appear
+        mode="out-in"
+    >
+      <div class="day-card__day-info"
+           :key="formattedDayOfWeekText"
+      >
+        <div class="day-card__day-of-week">
+          {{ formattedDayOfWeekText }}
+        </div>
+        <div class="day-card__date">
+          {{ formattedDateText }}
+        </div>
       </div>
-      <div class="day-card__date">
-        {{ formattedDateText }}
-      </div>
-    </div>
+    </Transition>
   </div>
 </template>
 

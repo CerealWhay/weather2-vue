@@ -45,9 +45,18 @@ const formattedDateText = computed<string>(() => {
           :rain-chance="props.hourInfo.chance_of_rain"
       />
     </div>
-    <div class="hour-card__temp">
-      {{ mainTempText }}
-    </div>
+    <Transition
+        name="fade"
+        appear
+        mode="out-in"
+    >
+      <div class="hour-card__temp"
+           :key="mainTempText"
+      >
+        {{ mainTempText }}
+      </div>
+    </Transition>
+
   </div>
 </template>
 

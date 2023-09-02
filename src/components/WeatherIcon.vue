@@ -9,11 +9,18 @@ const props = defineProps<{
 <template>
   <div class="weather-icon">
     <div class="weather-icon__img-wrapper">
-      <img
-          class="weather-icon__img"
-          :src="props.condition.icon"
-          :alt="props.condition.text"
+      <Transition
+          name="fade"
+          appear
+          mode="out-in"
       >
+        <img
+            class="weather-icon__img"
+            :src="props.condition.icon"
+            :alt="props.condition.text"
+            :key="props.condition.text"
+        >
+      </Transition>
     </div>
   </div>
 </template>

@@ -1,8 +1,8 @@
 import {defineStore} from 'pinia'
 import type {TApiData} from "@/types/api/TApiData";
-import {ref, computed} from 'vue'
-import axios from "axios";
+import {computed, ref} from 'vue'
 import type {AxiosPromise} from "axios";
+import axios from "axios";
 import {defaultApiValue} from "@/utils/defaultApiValue";
 import type {TForecastHour} from "@/types/api/TForecastHour";
 import type {TLocation} from "@/types/api/TLocation";
@@ -15,6 +15,8 @@ const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const useApiStore = defineStore('apiStore', () => {
+    const isLoading = ref<boolean>(false)
+
     const _apiData = ref<TApiData>(defaultApiValue)
     const location = computed<TLocation>(() => _apiData.value.location)
     const current = computed<TCurrentWeatherData>(() => _apiData.value.current)
@@ -51,11 +53,13 @@ export const useApiStore = defineStore('apiStore', () => {
             || await getUserLatLon()
             || "detroit"
 
+        isLoading.value = true;
         const response = await _getData('/forecast.json', {
             q: searchQuery,
             key: apiKey,
             days: 3,
         })
+        isLoading.value = false;
         _apiData.value = response.data
         localStorage.setItem('lastSearchQuery', searchQuery)
     }
@@ -76,5 +80,6 @@ export const useApiStore = defineStore('apiStore', () => {
         getCities,
         searchedCities,
         getBgSrc,
+        isLoading,
     }
 })

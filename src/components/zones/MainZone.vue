@@ -38,16 +38,41 @@ const maxTodayTemp = computed<TTemps>((): TTemps => ({
 <template>
   <div class="main-zone">
     <div class="current-info">
-      <div class="current-info__temp-now">
-        {{ mainTempText }}
-      </div>
+      <Transition
+          name="fade"
+          appear
+          mode="out-in"
+      >
+        <div class="current-info__temp-now"
+             :key="mainTempText"
+        >
+          {{ mainTempText }}
+        </div>
+      </Transition>
+
       <div class="current-info__detail">
-        <div class="current-info__city">
-          {{ apiStore.location.name }}
-        </div>
-        <div class="current-info__datetime">
-          {{ formattedDateText }}
-        </div>
+        <Transition
+            name="fade"
+            appear
+            mode="out-in"
+        >
+          <div class="current-info__city"
+               :key="apiStore.location.name"
+          >
+            {{ apiStore.location.name }}
+          </div>
+        </Transition>
+        <Transition
+            name="fade"
+            appear
+            mode="out-in"
+        >
+          <div class="current-info__datetime"
+               :key="formattedDateText"
+          >
+            {{ formattedDateText }}
+          </div>
+        </Transition>
         <TempRange
             class="current-info__temp-range"
             :min-values="minTodayTemp"

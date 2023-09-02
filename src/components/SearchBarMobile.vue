@@ -11,9 +11,10 @@ const tempStore = useTempStore()
 const searchStore = useSearchStore()
 const apiStore = useApiStore()
 
-const isSearchBarOpen = ref<Boolean>(true)
+const isSearchBarOpen = ref<Boolean>(false)
 
 const getNavigationWeather = async () => {
+  apiStore.isLoading = true
   await apiStore.getWeatherCity(await getUserLatLon())
 }
 </script>
@@ -34,21 +35,26 @@ const getNavigationWeather = async () => {
       />
     </div>
 
-    <div v-if="isSearchBarOpen"
-         class="search-bar-mobile__input-wrapper"
+    <Transition
+        name="fade-short"
+        mode="out-in"
     >
-      <input
-          type="text"
-          class="search-bar-mobile__input"
-          placeholder="Type city here..."
-          @keyup.enter="searchStore.selectCity(searchStore.searchString)"
-          v-model="searchStore.searchString"
+      <div v-if="isSearchBarOpen"
+           class="search-bar-mobile__input-wrapper"
       >
-      <SearchedCities
-          v-if="searchStore.isSearchSelectorOpen"
-          class="search-bar-mobile__searched-cities"
-      />
-    </div>
+        <input
+            type="text"
+            class="search-bar-mobile__input"
+            placeholder="Type city here..."
+            @keyup.enter="searchStore.selectCity(searchStore.searchString)"
+            v-model="searchStore.searchString"
+        >
+        <SearchedCities
+            v-if="searchStore.isSearchSelectorOpen"
+            class="search-bar-mobile__searched-cities"
+        />
+      </div>
+    </Transition>
 
     <div class="search-bar-mobile__btn"
          @click="tempStore.selectTempType(tempStore.notSelectedTempType)"
@@ -88,7 +94,7 @@ const getNavigationWeather = async () => {
         transition: .3s color;
       }
     }
-    
+
     .search-bar-mobile__searched-cities {
       position: absolute;
       top: calc(100% + 8px);

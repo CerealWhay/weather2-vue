@@ -23,9 +23,18 @@ const ValueLineClass = computed<string>(() => {
       title="UV Index"
       class="details-card-uv"
   >
-    <div class="details-card-uv__value">
-      {{uvValue}}
-    </div>
+    <Transition
+        name="fade"
+        appear
+        mode="out-in"
+    >
+      <div class="details-card-uv__value"
+           :key="uvValue"
+      >
+        {{uvValue}}
+      </div>
+    </Transition>
+
     <div class="details-card-uv__scale uv-scale">
       <div class="uv-scale__baseline">
         <div class="uv-scale__dash uv-scale__dash--left">
@@ -41,10 +50,16 @@ const ValueLineClass = computed<string>(() => {
           </div>
         </div>
       </div>
-      <div class="uv-scale__value-line"
-           :class="ValueLineClass"
-           :style="ValueLineWidth"
-      ></div>
+      <Transition
+          name="uv-line"
+          appear
+          mode="out-in"
+      >
+        <div class="uv-scale__value-line"
+             :class="ValueLineClass"
+             :style="ValueLineWidth"
+        ></div>
+      </Transition>
     </div>
   </detail-card-wrapper>
 </template>
