@@ -72,18 +72,18 @@ $color: rgba(255, 255, 255, 0.75);
       animation: rotation 1s infinite reverse ease-in-out;
     }
     &--2 {
-      width: $max_size / 2;
-      height: $max_size / 2;
+      width: calc($max_size / 2);
+      height: calc($max_size / 2);
       animation: rotation 1s infinite normal ease-in-out;
     }
     &--3 {
-      width: $max_size / 4;
-      height: $max_size / 4;
+      width: calc($max_size / 4);
+      height: calc($max_size / 4);
       animation: rotation 1s infinite reverse ease-in-out;
     }
     &--4 {
-      width: $max_size / 8;
-      height: $max_size / 8;
+      width: calc($max_size / 8);
+      height: calc($max_size / 8);
       animation: rotation 1s infinite normal ease-in-out;
     }
   }
